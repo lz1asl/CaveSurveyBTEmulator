@@ -39,7 +39,9 @@ public class BluetoothServerServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/server.jsp");
             dispatcher.forward(request, response);
         } else if ("stop".equals(action)) {
-            server.stop();
+            if (server != null) {
+                server.stop();
+            }
 
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
             dispatcher.forward(request, response);

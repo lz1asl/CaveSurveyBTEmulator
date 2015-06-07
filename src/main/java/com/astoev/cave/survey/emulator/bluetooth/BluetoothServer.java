@@ -17,7 +17,10 @@ import java.util.Map;
 public class BluetoothServer {
 
     private Map<String, Object> deviceDef;
-    private StringBuilder log = new StringBuilder();
+    private static StringBuilder log = new StringBuilder();
+    private static ConnectThread thread;
+    StreamConnectionNotifier notifier;
+    StreamConnection connection = null;
 
 
     public Map start(String aConfig) {
@@ -34,9 +37,6 @@ public class BluetoothServer {
 
         // retrieve the local Bluetooth device object
         LocalDevice local = null;
-
-        StreamConnectionNotifier notifier;
-        StreamConnection connection = null;
 
         // setup the server to listen for connection
         try {
@@ -57,11 +57,11 @@ public class BluetoothServer {
 
             String bluecoveVersion = LocalDevice.getProperty("bluecove");
             if (bluecoveVersion != null) {
-                System.out.println("bluecove:" + bluecoveVersion);
-                System.out.println("stack:" + LocalDevice.getProperty("bluecove.stack"));
-                System.out.println("stack version:" + LocalDevice.getProperty("bluecove.stack.version"));
-                System.out.println("radio manufacturer:" + LocalDevice.getProperty("bluecove.radio.manufacturer"));
-                System.out.println("radio version:" + LocalDevice.getProperty("bluecove.radio.version"));
+                info.put("bluecove", bluecoveVersion);
+                info.put("stack", LocalDevice.getProperty("bluecove.stack"));
+                info.put("stack version", LocalDevice.getProperty("bluecove.stack.version"));
+                info.put("radio manufacturer", LocalDevice.getProperty("bluecove.radio.manufacturer"));
+                info.put("radio version", LocalDevice.getProperty("bluecove.radio.version"));
             }
 
         } catch (Exception e) {
@@ -71,19 +71,55 @@ public class BluetoothServer {
             stop();
         }
 
+        new Thread(new ConnectThread()).start();
+
         return info;
     }
 
     public void stop() {
-        System.out.println("Stop server TODO");
+        System.out.println("Stop server");
         log.append("Exiting\n");
-        // TODO
+        if (thread != null) {
+            thread.stop();
+        }
     }
 
     public String getLog() {
         return log.toString();
     }
 
+    class ConnectThread implements Runnable {
+
+        private boolean running = true;
+
+        @Override
+        public void run() {
+
+
+            while (running) {
+                try {
+                    log.append("Waiting for connection...");
+                    connection = notifier.acceptAndOpen();
+                    log.append("Connected");
+
+//                Thread processThread = new Thread(new ProcessConnectionThread(connection));
+//                processThread.start();
+
+                } catch (Exception e) {
+                    log.append("Failure:\n").append(e).append("\n");
+                    stop();
+                    return;
+                }
+            }
+        }
+
+        public void stop() {
+            running = false;
+        }
+    }
+
+
 }
+
 
 
