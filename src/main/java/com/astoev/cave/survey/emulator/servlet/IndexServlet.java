@@ -21,9 +21,11 @@ public class IndexServlet extends HttpServlet {
 
         InputStream in = getClass().getClassLoader().getResourceAsStream("/definitions/devices.json");
         try {
+            // load list of devices
             String [] devices = new Gson().fromJson(new InputStreamReader(in), String[].class);
             System.out.println("devices found " + devices.length);
             request.setAttribute("devices", devices);
+
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/devices.jsp");
             dispatcher.forward(request, response);
         } finally {

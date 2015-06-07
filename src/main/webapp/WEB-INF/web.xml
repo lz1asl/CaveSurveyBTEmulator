@@ -19,12 +19,22 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>deviceServlet</servlet-name>
+        <servlet-class>com.astoev.cave.survey.emulator.servlet.DeviceServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deviceServlet</servlet-name>
+        <url-pattern>/device</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>btServlet</servlet-name>
         <servlet-class>com.astoev.cave.survey.emulator.servlet.BluetoothServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>btServlet</servlet-name>
-        <url-pattern>/btServlet</url-pattern>
+        <url-pattern>/server</url-pattern>
     </servlet-mapping>
 </web-app>

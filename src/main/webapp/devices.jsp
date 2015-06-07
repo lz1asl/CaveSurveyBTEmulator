@@ -8,18 +8,19 @@
 <h2>Choose CaveSurvey supported device:</h2>
 <p>
 
-    <form action="btServlet">
+    <form action="device">
         <select name="device">
         <%
             String[] devices = (String[]) request.getAttribute("devices");
+            int index = 0;
             for (String device : devices) {
-                out.println("<option value=\"" + device + "\">" +device + "</option>");
+                out.println("<option value=\"" + index + "\">" +device + "</option>");
+                index ++;
             }
         %>
 
         </select>
-        <input type="hidden" name="action" value="start" />
-        <input type="submit" value="Start"/>
+        <input type="submit" value="Next"/>
     </form>
 </p>
 </body>

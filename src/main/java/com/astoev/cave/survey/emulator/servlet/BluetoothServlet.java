@@ -2,6 +2,7 @@ package com.astoev.cave.survey.emulator.servlet;
 
 import com.astoev.cave.survey.emulator.bluetooth.BluetoothServer;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +15,26 @@ import java.io.IOException;
 
 public class BluetoothServlet extends HttpServlet {
 
+    private static BluetoothServer server = null;
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("request to " + request.getParameter("action") + " for " + request.getParameter("device"));
+        String action = request.getParameter("action");
 
-        if ("start".equals(request.getParameter("action"))) {
-            BluetoothServer.start(request.getParameter("device"));
-        } else {
-            BluetoothServer.stop();
+        System.out.println("request to " + action  + " for " + request.getParameter("config"));
+
+        if ("start".equals(action)) {
+            server = new BluetoothServer();
+            server.start(request.getParameter("config"));
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/server.jsp");
+            dispatcher.forward(request, response);
+        } else if ("stop".equals(action)) {
+            server.stop();
+        } else if ("log".equals(action)) {
+           // ...
         }
+
+
     }
 }
