@@ -7,9 +7,20 @@
 
   <display-name>CaveSurvey BT Emulator</display-name>
 
+
+    <servlet>
+        <servlet-name>indexServlet</servlet-name>
+        <servlet-class>com.astoev.cave.survey.emulator.servlet.IndexServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>indexServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>btServlet</servlet-name>
-        <servlet-class>com.astoev.cave.survey.emulator.BluetoothServlet</servlet-class>
+        <servlet-class>com.astoev.cave.survey.emulator.servlet.BluetoothServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

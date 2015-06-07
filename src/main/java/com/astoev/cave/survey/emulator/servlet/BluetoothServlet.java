@@ -1,12 +1,11 @@
-package com.astoev.cave.survey.emulator;
+package com.astoev.cave.survey.emulator.servlet;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import com.astoev.cave.survey.emulator.bluetooth.BluetoothServer;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -15,10 +14,7 @@ import java.io.IOException;
 
 public class BluetoothServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request,
-                      HttpServletResponse response)
-            throws ServletException, IOException
-    {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("request to " + request.getParameter("action") + " for " + request.getParameter("device"));
 

@@ -1,4 +1,4 @@
-package com.astoev.cave.survey.emulator;
+package com.astoev.cave.survey.emulator.bluetooth;
 
 import com.intel.bluetooth.BluetoothStack;
 

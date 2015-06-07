@@ -5,18 +5,17 @@
 <title>CaveSurvey BT Emulator</title>
 </head>
 <body>
-<h2>Emulate CaveSurvey supported device:</h2>
+<h2>Choose CaveSurvey supported device:</h2>
 <p>
 
     <form action="btServlet">
         <select name="device">
-        <!--%
-
-            String path =  getServletContext().getRealPath("/WEB-INF/classes/definitions");
-            for (String device : new java.io.File(path).list()) {
+        <%
+            String[] devices = (String[]) request.getAttribute("devices");
+            for (String device : devices) {
                 out.println("<option value=\"" + device + "\">" +device + "</option>");
             }
-        % -->
+        %>
 
         </select>
         <input type="hidden" name="action" value="start" />

@@ -1,15 +1,4 @@
-package com.astoev.cave.survey.emulator;
-
-import javax.bluetooth.DiscoveryAgent;
-import javax.bluetooth.LocalDevice;
-import javax.bluetooth.RemoteDevice;
-import javax.bluetooth.UUID;
-import javax.microedition.io.Connector;
-import javax.microedition.io.StreamConnection;
-import javax.microedition.io.StreamConnectionNotifier;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
+package com.astoev.cave.survey.emulator.bluetooth;
 
 /**
  * Created by astoev on 6/2/15.
