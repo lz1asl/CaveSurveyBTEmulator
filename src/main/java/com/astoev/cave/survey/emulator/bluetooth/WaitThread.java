@@ -25,44 +25,11 @@ public class WaitThread implements Runnable{
 
     /** Waiting for connection from devices */
     private void waitForConnection() {
-        // retrieve the local Bluetooth device object
-        LocalDevice local = null;
-
-        StreamConnectionNotifier notifier;
-        StreamConnection connection = null;
-
-        // setup the server to listen for connection
-        try {
-            local = LocalDevice.getLocalDevice();
-
-            local.setDiscoverable(DiscoveryAgent.GIAC);
-
-            UUID uuid = new UUID("d0c722b07e1511e1b0c40800200c9a66", false);
-            System.out.println(uuid.toString());
-
-            String url = "btspp://localhost:" + uuid.toString() + ";name=RemoteBluetooth";
-            notifier = (StreamConnectionNotifier) Connector.open(url);
 
 
 
-            System.out.println("Local btaddr is " + local.getBluetoothAddress());
-            System.out.println("Local name is " + local.getFriendlyName());
 
-            String bluecoveVersion = LocalDevice.getProperty("bluecove");
-            if (bluecoveVersion != null) {
-                System.out.println("bluecove:" + bluecoveVersion);
-                System.out.println("stack:" + LocalDevice.getProperty("bluecove.stack"));
-                System.out.println("stack version:" + LocalDevice.getProperty("bluecove.stack.version"));
-                System.out.println("radio manufacturer:" + LocalDevice.getProperty("bluecove.radio.manufacturer"));
-                System.out.println("radio version:" + LocalDevice.getProperty("bluecove.radio.version"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-
-        // waiting for connection
+       /* // waiting for connection
         while(true) {
             try {
                 System.out.println("waiting for connection...");
@@ -76,6 +43,6 @@ public class WaitThread implements Runnable{
                 e.printStackTrace();
                 return;
             }
-        }
+        }*/
     }
 }

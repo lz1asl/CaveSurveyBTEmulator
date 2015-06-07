@@ -30,7 +30,7 @@
 
     <servlet>
         <servlet-name>btServlet</servlet-name>
-        <servlet-class>com.astoev.cave.survey.emulator.servlet.BluetoothServlet</servlet-class>
+        <servlet-class>com.astoev.cave.survey.emulator.servlet.BluetoothServerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
