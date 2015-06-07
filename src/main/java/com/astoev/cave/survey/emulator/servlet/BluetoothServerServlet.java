@@ -3,6 +3,7 @@ package com.astoev.cave.survey.emulator.servlet;
 import com.astoev.cave.survey.emulator.Util;
 import com.astoev.cave.survey.emulator.bluetooth.BluetoothServer;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +49,22 @@ public class BluetoothServerServlet extends HttpServlet {
         } else if ("log".equals(action)) {
             IOUtils.write(server.getLog(), response.getWriter());
             response.getWriter().flush();
+        } else if ("updateName".equals(action)) {
+            try {
+                String command = "hciconfig hci0 name " + request.getParameter("btName");
+                System.out.println("command = " + command);
+                Process p = Runtime.getRuntime().exec(command);
+                p.waitFor();
+                String errors = IOUtils.toString(p.getErrorStream());
+                System.out.println("errors = " + errors);
+                if (StringUtils.isNotEmpty(errors) || p.exitValue() != 0) {
+                    response.getWriter().write("Exit code " + p.exitValue() + " : " + errors);
+                } else {
+                    response.getWriter().write("Success");
+                }
+            } catch (Exception e) {
+                response.getWriter().write("Error : " + e.getMessage());
+            }
         }
     }
 }

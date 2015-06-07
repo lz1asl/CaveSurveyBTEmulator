@@ -12,7 +12,16 @@
         <li>Make sure system bluetooth device name matches '<%=request.getAttribute("deviceBluetoothName")%>':
 
             <ul>
-                <li>'<%=request.getAttribute("deviceBluetoothName")%>' to set</li>
+                <li>'hciconfig hci0 name <%=request.getAttribute("deviceBluetoothName")%>' ->
+                    <input type="button" id="applyName" value="Apply" onClick="applyName()"/>
+                    <label id="applyResult" />
+                      <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+                        <script>
+                            function applyName() {
+                                $(applyResult).load("server?action=updateName&btName=<%=request.getAttribute("deviceBluetoothName")%>");
+                             }
+                        </script>
+                </li>
                 <li>'hciconfig -a' to test</li>
             </ul>
         </li>
