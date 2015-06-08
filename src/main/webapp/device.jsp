@@ -5,6 +5,17 @@
         <title>CaveSurvey BT Emulator</title>
     </head>
 <body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script>
+    function applyName() {
+        $(applyResult).load("server?action=updateName&btName=<%=request.getAttribute("deviceBluetoothName")%>");
+     }
+
+    function checkName() {
+         $(checkResult).load("server?action=checkName");
+      }
+</script>
+
 <h2>Emulate <%=request.getAttribute("deviceName")%> :</h2>
     <ul>
         <li>Make sure bluetooth radio is enabled</li>
@@ -15,14 +26,12 @@
                 <li>'hciconfig hci0 name <%=request.getAttribute("deviceBluetoothName")%>' ->
                     <input type="button" id="applyName" value="Apply" onClick="applyName()"/>
                     <label id="applyResult" />
-                      <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-                        <script>
-                            function applyName() {
-                                $(applyResult).load("server?action=updateName&btName=<%=request.getAttribute("deviceBluetoothName")%>");
-                             }
-                        </script>
                 </li>
-                <li>'hciconfig -a' to test</li>
+                <li>'hciconfig -a' to test ->
+                   <input type="button" id="checkName" value="Check" onClick="checkName()"/>
+                   <label id="checkResult" />
+                </li>
+                </li>
             </ul>
         </li>
         <li>
