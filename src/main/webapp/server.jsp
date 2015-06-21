@@ -29,9 +29,15 @@
                         $('#log').scrollTop($('#log')[0].scrollHeight); // scroll
                     }, 2000);
                 });
+
+        function readMeasure() {
+            $.get("server?action=simulate");
+        }
     </script>
 
-
+    <br/>
+    <button type="button" onClick="readMeasure()">Read measure</button>
+    <br/><br/>
     <form action="server">
         <input type="hidden" name="action" value="stop"/>
         <input type="submit" value="Stop"/>

@@ -98,7 +98,9 @@ public class BluetoothServer {
     }
 
     public void simulateMeasurement() {
-
+        if (communicationThread != null) {
+            communicationThread.simulateMessage();
+        }
     }
 
     class ConnectThread extends Thread {
