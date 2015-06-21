@@ -1,4 +1,7 @@
 {
-'displayName' = 'CEM iLDM 150',
-'btName' = 'iLDM-150',
-'UUID' = '0000110100001000800000805F9B34FB'}
+    'displayName' = 'CEM iLDM 150',
+    'btName' = 'iLDM-150',
+    'UUID' = '0000110100001000800000805F9B34FB',
+    'messages' = {},
+    'measurements' = []
+}

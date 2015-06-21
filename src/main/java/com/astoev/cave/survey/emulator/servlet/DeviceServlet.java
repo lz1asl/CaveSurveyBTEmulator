@@ -30,6 +30,10 @@ public class DeviceServlet extends HttpServlet {
                 // CEM
                 deviceConfig = "CEMiLDM150.json";
                 break;
+            case 1:
+                // LTI
+                deviceConfig = "LTITruPulse360.json";
+                break;
 
             default :
                 throw new RuntimeException("Not implemented");

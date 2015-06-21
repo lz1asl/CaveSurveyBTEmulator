@@ -1,6 +1,7 @@
 package com.astoev.cave.survey.emulator.bluetooth;
 
 import com.astoev.cave.survey.emulator.Util;
+import org.apache.commons.io.IOUtils;
 
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
@@ -8,6 +9,9 @@ import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +22,8 @@ public class BluetoothServer {
 
     private Map<String, Object> deviceDef;
     private static StringBuilder log = new StringBuilder();
-    private static ConnectThread thread;
+    private static ConnectThread connectThread;
+    private static CommunicationThread communicationThread;
     StreamConnectionNotifier notifier;
     StreamConnection connection = null;
 
@@ -71,7 +76,8 @@ public class BluetoothServer {
             stop();
         }
 
-        new Thread(new ConnectThread()).start();
+        connectThread = new ConnectThread();
+        connectThread.start();
 
         return info;
     }
@@ -79,8 +85,11 @@ public class BluetoothServer {
     public void stop() {
         System.out.println("Stop server");
         log.append("Exiting\n");
-        if (thread != null) {
-            thread.stop();
+        if (connectThread != null) {
+            connectThread.stopListening();
+        }
+        if (communicationThread != null) {
+            communicationThread.interrupt();
         }
     }
 
@@ -88,7 +97,11 @@ public class BluetoothServer {
         return log.toString();
     }
 
-    class ConnectThread implements Runnable {
+    public void simulateMeasurement() {
+
+    }
+
+    class ConnectThread extends Thread {
 
         private boolean running = true;
 
@@ -96,25 +109,109 @@ public class BluetoothServer {
         public void run() {
 
 
+
+
             while (running) {
                 try {
                     log.append("Waiting for connection...");
+
+                    if (connection != null) {
+                        connection.close();
+                    }
+
+                    if (communicationThread != null) {
+                        communicationThread.interrupt();
+                    }
+
                     connection = notifier.acceptAndOpen();
                     log.append("Connected");
 
-//                Thread processThread = new Thread(new ProcessConnectionThread(connection));
-//                processThread.start();
+                    communicationThread = new CommunicationThread(connection);
+                    communicationThread.start();
+
+                    sleep(100);
 
                 } catch (Exception e) {
                     log.append("Failure:\n").append(e).append("\n");
-                    stop();
+                    stopListening();
                     return;
                 }
             }
         }
 
-        public void stop() {
+        public void stopListening() {
             running = false;
+        }
+    }
+
+    class CommunicationThread extends Thread {
+
+        private StreamConnection connection = null;
+        private InputStream inputStream = null;
+        private OutputStream outputStream = null;
+
+        public CommunicationThread(StreamConnection aConnection) {
+            super();
+            connection = aConnection;
+        }
+
+        @Override
+        public void run() {
+            try {
+
+                inputStream = connection.openInputStream();
+                outputStream = connection.openOutputStream();
+                while (true) {
+
+
+                    // read
+                    String command = IOUtils.toString(inputStream);
+                    System.out.println("command = " + command);
+                    log.append("Got:\n").append(command).append("\n");
+
+                    // respond
+                    Map<String, String> messages = (Map<String, String>) deviceDef.get("messages");
+                    if (messages.containsKey(command)) {
+                        String response = messages.get(command);
+                        System.out.println("response = " + response);
+                        log.append("Respond:\n").append(response).append("\n");
+                        IOUtils.write(response, outputStream);
+                    } else {
+                        // bad input
+                        System.err.println("Unrecognized");
+                        log.append("Failure:\n").append("not recognized").append("\n");
+                    }
+
+
+                    sleep(100);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.append("Failure:\n").append(e).append("\n");
+                IOUtils.closeQuietly(inputStream);
+                IOUtils.closeQuietly(outputStream);
+                try {
+                    connection.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+        public void simulateMessage() {
+            try {
+
+                System.out.println("Simulating");
+                String[] measurements = (String[]) deviceDef.get("measurements");
+                String measurement = measurements[((int) (Math.random() * measurements.length))];
+
+                log.append("Simulate:\n").append(measurement).append("\n");
+                IOUtils.write(measurement, outputStream);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                log.append("Failure:\n").append(e).append("\n");
+            }
         }
     }
 

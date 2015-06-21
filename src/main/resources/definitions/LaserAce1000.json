@@ -1,1 +1,12 @@
-TODO
+{
+    'displayName' = 'Trimble LaserAce 1000',
+    'btName' = 'LA SURVEY,12345',
+    'UUID' = '0000110100001000800000805F9B34FB',
+    'messages' = {},
+    'measurements' = [
+        '$PTNLA,HV,1.87,M,343.2,D,17.02,D,1.96,M*77',
+        '$PTNLA,HV,1.58,M,341.5,D,9.15,D,1.60,M*40',
+        '$PTNLA,HV,1.60,M,356.2,D,8.59,D,1.62,M*41',
+        '$PTNLA,HV,1.62,M,351.5,D,8.45,D,1.64,M*48'
+    ]
+}

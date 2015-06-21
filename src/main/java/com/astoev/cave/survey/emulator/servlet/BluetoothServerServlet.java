@@ -55,6 +55,8 @@ public class BluetoothServerServlet extends HttpServlet {
         } else if ("checkName".equals(action)) {
             String command = "hciconfig -a";
             response.getWriter().write(Util.executeCommand(command));
+        } else if ("simulate".equals(action)) {
+            server.simulateMeasurement();
         }
     }
 }
