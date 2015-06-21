@@ -8,11 +8,15 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script>
     function applyName() {
-        $(applyResult).load("server?action=updateName&btName=<%=request.getAttribute("deviceBluetoothName")%>");
-     }
+        $.get("server?action=updateName&btName=<%=request.getAttribute("deviceBluetoothName")%>", function( data ) {
+          alert(data);
+        });
+    }
 
     function checkName() {
-         $(checkResult).load("server?action=checkName");
+         $.get("server?action=checkName", function( data ) {
+          alert(data);
+        });
       }
 </script>
 
@@ -25,11 +29,9 @@
             <ul>
                 <li>'hciconfig hci0 name <%=request.getAttribute("deviceBluetoothName")%>' ->
                     <input type="button" id="applyName" value="Apply" onClick="applyName()"/>
-                    <label id="applyResult" />
                 </li>
                 <li>'hciconfig -a' to test ->
                    <input type="button" id="checkName" value="Check" onClick="checkName()"/>
-                   <label id="checkResult" />
                 </li>
                 </li>
             </ul>
