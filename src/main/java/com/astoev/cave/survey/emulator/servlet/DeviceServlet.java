@@ -26,13 +26,18 @@ public class DeviceServlet extends HttpServlet {
         String deviceConfig;
 
         switch (device) {
-            case 0:
-                // CEM
-                deviceConfig = "CEMiLDM150.json";
-                break;
+//            case 0:
+//                // CEM
+//                deviceConfig = "CEMiLDM150.json";
+//                break;
             case 1:
                 // LTI
                 deviceConfig = "LTITruPulse360.json";
+                break;
+
+            case 2:
+                // LaserAce
+                deviceConfig = "LaserAce1000.json";
                 break;
 
             default :

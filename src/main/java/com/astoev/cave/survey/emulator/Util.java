@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -25,9 +26,9 @@ public class Util {
         }
     }
 
-    public static String executeCommand(String command) {
+    public static String executeCommand(String[] command) {
         try {
-            System.out.println("command = " + command);
+            System.out.println("command = " + Arrays.toString(command));
             Process p = Runtime.getRuntime().exec(command);
             p.waitFor();
             String errors = IOUtils.toString(p.getErrorStream());

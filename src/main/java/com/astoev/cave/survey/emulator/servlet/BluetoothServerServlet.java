@@ -47,13 +47,15 @@ public class BluetoothServerServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
             dispatcher.forward(request, response);
         } else if ("log".equals(action)) {
-            IOUtils.write(server.getLog(), response.getWriter());
-            response.getWriter().flush();
+            if (server != null) {
+                IOUtils.write(server.getLog(), response.getWriter());
+                response.getWriter().flush();
+            }
         } else if ("updateName".equals(action)) {
-            String command = "hciconfig hci0 name " + request.getParameter("btName");
+            String[] command = { "hciconfig", "hci0", "name",  request.getParameter("btName")};
             response.getWriter().write(Util.executeCommand(command));
         } else if ("checkName".equals(action)) {
-            String command = "hciconfig -a";
+            String[] command = {"hciconfig", "-a"};
             response.getWriter().write(Util.executeCommand(command));
         } else if ("simulate".equals(action)) {
             server.simulateMeasurement();

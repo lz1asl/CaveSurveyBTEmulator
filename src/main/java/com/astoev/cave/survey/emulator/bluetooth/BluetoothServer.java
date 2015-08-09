@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,9 +37,6 @@ public class BluetoothServer {
         Map<String, Object> info = new HashMap<String, Object>();
 
         log.append("Starting\n");
-
-//        new Thread( new WaitThread()).start();
-
 
         // retrieve the local Bluetooth device object
         LocalDevice local = null;
@@ -100,6 +98,8 @@ public class BluetoothServer {
     public void simulateMeasurement() {
         if (communicationThread != null) {
             communicationThread.simulateMessage();
+        } else {
+            System.out.println("Not connected");
         }
     }
 
@@ -110,30 +110,37 @@ public class BluetoothServer {
         @Override
         public void run() {
 
-
-
+            System.out.println("Start communication thread");
 
             while (running) {
                 try {
-                    log.append("Waiting for connection...");
 
-                    if (connection != null) {
-                        connection.close();
+                    while (communicationThread != null && communicationThread.isRunning()) {
+                        System.out.println("Busy communication thread");
+                        sleep(1000);
                     }
 
-                    if (communicationThread != null) {
-                        communicationThread.interrupt();
-                    }
+                    log.append("Waiting for connection...\n");
+
+//                    if (communicationThread != null) {
+//                        System.out.println("Kill existing connection");
+//                        communicationThread.setRunning(false);
+//                        communicationThread.interrupt();
+//                    }
 
                     connection = notifier.acceptAndOpen();
-                    log.append("Connected");
+                    if (connection != null) {
+                        log.append("Connected");
 
-                    communicationThread = new CommunicationThread(connection);
-                    communicationThread.start();
+                        communicationThread = new CommunicationThread(connection);
+                        communicationThread.start();
+                    } else {
+                        System.out.println("No connection created");
+                    }
 
-                    sleep(100);
 
                 } catch (Exception e) {
+                    e.printStackTrace();
                     log.append("Failure:\n").append(e).append("\n");
                     stopListening();
                     return;
@@ -151,6 +158,7 @@ public class BluetoothServer {
         private StreamConnection connection = null;
         private InputStream inputStream = null;
         private OutputStream outputStream = null;
+        private boolean running = false;
 
         public CommunicationThread(StreamConnection aConnection) {
             super();
@@ -159,12 +167,13 @@ public class BluetoothServer {
 
         @Override
         public void run() {
+            running = true;
             try {
 
                 inputStream = connection.openInputStream();
                 outputStream = connection.openOutputStream();
-                while (true) {
 
+                while (running) {
 
                     // read
                     String command = IOUtils.toString(inputStream);
@@ -178,12 +187,12 @@ public class BluetoothServer {
                         System.out.println("response = " + response);
                         log.append("Respond:\n").append(response).append("\n");
                         IOUtils.write(response, outputStream);
+                        outputStream.flush();
                     } else {
                         // bad input
                         System.err.println("Unrecognized");
                         log.append("Failure:\n").append("not recognized").append("\n");
                     }
-
 
                     sleep(100);
                 }
@@ -197,6 +206,9 @@ public class BluetoothServer {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                log.append("Connection closed:\n");
+            } finally {
+                running = false;
             }
         }
 
@@ -204,16 +216,26 @@ public class BluetoothServer {
             try {
 
                 System.out.println("Simulating");
-                String[] measurements = (String[]) deviceDef.get("measurements");
-                String measurement = measurements[((int) (Math.random() * measurements.length))];
+                List<String> measurements = (List<String>) deviceDef.get("measurements");
+                String measurement = measurements.get(((int) (Math.random() * measurements.size())));
 
                 log.append("Simulate:\n").append(measurement).append("\n");
-                IOUtils.write(measurement, outputStream);
+                System.out.println("measurement = " + measurement);
+                IOUtils.write((measurement + "\n" ).getBytes(), outputStream);
+                outputStream.flush();
 
             } catch (IOException e) {
                 e.printStackTrace();
                 log.append("Failure:\n").append(e).append("\n");
             }
+        }
+
+        public boolean isRunning() {
+            return running;
+        }
+
+        public void setRunning(boolean running) {
+            this.running = running;
         }
     }
 

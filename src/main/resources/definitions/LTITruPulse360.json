@@ -1,11 +1,8 @@
 {
     'displayName' = 'Laser Technology Inc TruPulse 360B',
-    'btName' = 'TP360B,12345',
+    'btName' = 'TP360B 12345',
     'UUID' = '0000110100001000800000805F9B34FB',
-    'messages' = {
-        'a' : 'B',
-        'c' : 'D'
-    },
+    'messages' = {},
     'measurements' = [
         '$PLTIT,HV,6.30,M,174.30,D,-1.60,D,6.30,M*4C',
         '$PLTIT,HV,0.20,M,93.60,D,-33.60,D,0.30,M*41',
