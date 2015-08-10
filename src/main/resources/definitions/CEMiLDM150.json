@@ -1,7 +1,12 @@
 {
-    'displayName' = 'CEM iLDM 150',
-    'btName' = 'iLDM-150',
-    'UUID' = '0000110100001000800000805F9B34FB',
-    'messages' = {},
-    'measurements' = []
+    "displayName" : "CEM iLDM 150",
+    "btName" : "iLDM-150",
+    "UUID" : "0000110100001000800000805F9B34FB",
+    "messages" : {},
+    "measurements" : [],
+    "measurementsBinary" : [
+        [1, 2, 3, 4],
+        [1, 3, 4, 5]
+
+    ]
 }

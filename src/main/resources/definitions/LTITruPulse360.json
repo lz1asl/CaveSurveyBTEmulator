@@ -1,16 +1,16 @@
 {
-    'displayName' = 'Laser Technology Inc TruPulse 360B',
-    'btName' = 'TP360B 12345',
-    'UUID' = '0000110100001000800000805F9B34FB',
-    'messages' = {},
-    'measurements' = [
-        '$PLTIT,HV,6.30,M,174.30,D,-1.60,D,6.30,M*4C',
-        '$PLTIT,HV,0.20,M,93.60,D,-33.60,D,0.30,M*41',
-        '$PLTIT,HV,0.10,M,128.30,D,-63.30,D,0.30,M*76',
-        '$PLTIT,HV,0.10,M,58.60,D,-52.50,D,0.20,M*40',
-        '$PLTIT,HV,1.80,M,29.20,D,-8.80,D,1.80,M*73',
-        '$PLTIT,HV,2.80,M,70.80,D,-6.10,D,2.80,M*72',
-        '$PLTIT,HV,5.00,M,100.00,D,-3.40,D,5.00,M*4C',
-        '$PLTIT,HV,5.01,M,112.70,D,-2.60,D,5.01,M*4B'
+    "displayName" : "Laser Technology Inc TruPulse 360B",
+    "btName" : "TP360B 12345",
+    "UUID" : "0000110100001000800000805F9B34FB",
+    "messages" : {},
+    "measurements" : [
+        "$PLTIT,HV,6.30,M,174.30,D,-1.60,D,6.30,M*4C",
+        "$PLTIT,HV,0.20,M,93.60,D,-33.60,D,0.30,M*41",
+        "$PLTIT,HV,0.10,M,128.30,D,-63.30,D,0.30,M*76",
+        "$PLTIT,HV,0.10,M,58.60,D,-52.50,D,0.20,M*40",
+        "$PLTIT,HV,1.80,M,29.20,D,-8.80,D,1.80,M*73",
+        "$PLTIT,HV,2.80,M,70.80,D,-6.10,D,2.80,M*72",
+        "$PLTIT,HV,5.00,M,100.00,D,-3.40,D,5.00,M*4C",
+        "$PLTIT,HV,5.01,M,112.70,D,-2.60,D,5.01,M*4B"
     ]
 }
