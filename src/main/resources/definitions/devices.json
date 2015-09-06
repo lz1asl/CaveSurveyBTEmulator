@@ -1,1 +1,6 @@
-["CEM", "LTI", "Trimble"]
+{
+  "CEM" : "CEMiLDM150.json",
+  "LTI" : "LTITruPulse360.json",
+  "Trimble" : "LaserAce1000.json",
+  "DistoX" : "DistoX.json"
+}

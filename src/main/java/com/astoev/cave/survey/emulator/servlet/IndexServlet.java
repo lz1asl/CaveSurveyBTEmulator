@@ -1,5 +1,6 @@
 package com.astoev.cave.survey.emulator.servlet;
 
+import com.astoev.cave.survey.emulator.Util;
 import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 /**
  * Created by astoev on 6/7/15.
@@ -19,18 +21,11 @@ public class IndexServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        InputStream in = getClass().getClassLoader().getResourceAsStream("/definitions/devices.json");
-        try {
-            // load list of devices
-            String [] devices = new Gson().fromJson(new InputStreamReader(in), String[].class);
-            System.out.println("devices found " + devices.length);
-            request.setAttribute("devices", devices);
+        Map<String, String> devices = new Util().getDevicesConfig();
+        System.out.println("devices found " + devices.size());
+        request.setAttribute("devices", devices.keySet().toArray(new String[]{}));
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/devices.jsp");
-            dispatcher.forward(request, response);
-        } finally {
-            IOUtils.closeQuietly(in);
-        }
-
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/devices.jsp");
+        dispatcher.forward(request, response);
     }
 }

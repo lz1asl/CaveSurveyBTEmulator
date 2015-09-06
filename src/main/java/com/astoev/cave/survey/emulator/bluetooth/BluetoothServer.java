@@ -223,12 +223,12 @@ public class BluetoothServer {
 
                 List<String> textMeasurements = (List<String>) deviceDef.get("measurements");
                 if (CollectionUtils.isNotEmpty(textMeasurements)) { // plain text based measurements
-                    String measurement = textMeasurements.get(((int) (Math.random() * textMeasurements.size())));
+                    String measurement = textMeasurements.get(Util.getRandomUpTo(textMeasurements.size()));
                     measurementDescription = measurement;
                     randomMeasurement = (measurement + "\n" ).getBytes();
                 } else {
-                    List<byte[]> binaryMeasurements = (List<byte[]>) deviceDef.get("measurementsBinary");
-                    randomMeasurement = binaryMeasurements.get(((int) (Math.random() * binaryMeasurements.size())));
+                    List binaryMeasurements = (List) deviceDef.get("measurementsBinary");
+                    randomMeasurement = (byte[]) binaryMeasurements.get(Util.getRandomUpTo(binaryMeasurements.size()));
                     StringBuilder binaryString = new StringBuilder("[");
                     for (byte b : randomMeasurement) {
                         binaryString.append(b).append(" ");

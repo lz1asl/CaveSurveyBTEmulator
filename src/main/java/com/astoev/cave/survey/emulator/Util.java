@@ -26,6 +26,16 @@ public class Util {
         }
     }
 
+    public Map<String, String> getDevicesConfig() {
+        InputStream in = getClass().getClassLoader().getResourceAsStream("/definitions/devices.json");
+        try {
+            // load list of devices
+            return new Gson().fromJson(new InputStreamReader(in), Map.class);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
     public static String executeCommand(String[] command) {
         try {
             System.out.println("command = " + Arrays.toString(command));
@@ -43,5 +53,9 @@ public class Util {
         } catch (Exception e) {
             return  "Error : " + e.getMessage();
         }
+    }
+
+    public static int getRandomUpTo(int maxValue) {
+        return ((int) (Math.random() * maxValue));
     }
 }

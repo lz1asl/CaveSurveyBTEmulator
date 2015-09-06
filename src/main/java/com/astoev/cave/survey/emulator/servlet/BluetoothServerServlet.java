@@ -24,7 +24,9 @@ public class BluetoothServerServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        String configFile = request.getParameter("config");
+        String device = request.getParameter("device");
+        Map<String, String> devices = new Util().getDevicesConfig();
+        String configFile = devices.get(device);
 
         System.out.println("request to " + action  + " for " + configFile);
 

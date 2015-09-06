@@ -38,7 +38,7 @@
         </li>
         <li>
             <form action="server">
-                <input type="hidden" name="config" value="<%=request.getAttribute("deviceConfig")%>"/>
+                <input type="hidden" name="device" value="<%=request.getParameter("device")%>"/>
                 <input type="hidden" name="action" value="start"/>
                 <input type="submit" value="Emulate device"/>
             </form>

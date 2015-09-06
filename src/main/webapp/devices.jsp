@@ -12,10 +12,8 @@
         <select name="device">
         <%
             String[] devices = (String[]) request.getAttribute("devices");
-            int index = 0;
             for (String device : devices) {
-                out.println("<option value=\"" + index + "\">" +device + "</option>");
-                index ++;
+                out.println("<option value=\"" + device + "\">" +device + "</option>");
             }
         %>
 

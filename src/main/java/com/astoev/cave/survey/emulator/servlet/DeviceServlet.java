@@ -21,32 +21,14 @@ public class DeviceServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int device = Integer.parseInt(request.getParameter("device"));
+        String device = request.getParameter("device");
         System.out.println("device = " + device);
-        String deviceConfig;
 
-        switch (device) {
-//            case 0:
-//                // CEM
-//                deviceConfig = "CEMiLDM150.json";
-//                break;
-            case 1:
-                // LTI
-                deviceConfig = "LTITruPulse360.json";
-                break;
-
-            case 2:
-                // LaserAce
-                deviceConfig = "LaserAce1000.json";
-                break;
-
-            default :
-                throw new RuntimeException("Not implemented");
-        }
+        Map<String, String> devices = new Util().getDevicesConfig();
+        String deviceConfig = devices.get(device);
+        System.out.println("deviceDef = " + deviceConfig);
 
         Map<String, Object> deviceDef = new Util().loadDeviceDefinition(deviceConfig);
-
-        System.out.println("deviceDef = " + deviceDef);
 
         request.setAttribute("deviceName", deviceDef.get("displayName"));
         request.setAttribute("deviceBluetoothName", deviceDef.get("btName"));
