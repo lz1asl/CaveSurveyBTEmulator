@@ -3,6 +3,7 @@ package com.astoev.cave.survey.emulator.bluetooth;
 import com.astoev.cave.survey.emulator.Util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.ArrayUtils;
 
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
@@ -228,10 +229,13 @@ public class BluetoothServer {
                     randomMeasurement = (measurement + "\n" ).getBytes();
                 } else {
                     List binaryMeasurements = (List) deviceDef.get("measurementsBinary");
-                    randomMeasurement = (byte[]) binaryMeasurements.get(Util.getRandomUpTo(binaryMeasurements.size()));
+                    List<Double> measurementBytes = (List<Double>) binaryMeasurements.get(Util.getRandomUpTo(binaryMeasurements.size()));
+
+                    randomMeasurement = new byte[measurementBytes.size()];
                     StringBuilder binaryString = new StringBuilder("[");
-                    for (byte b : randomMeasurement) {
-                        binaryString.append(b).append(" ");
+                    for (int i = 0; i< measurementBytes.size(); i++) {
+                        binaryString.append(measurementBytes.get(i)).append(" ");
+                        randomMeasurement[i] = measurementBytes.get(i).byteValue();
                     }
                     binaryString.append("]");
                     measurementDescription = binaryString.toString();
