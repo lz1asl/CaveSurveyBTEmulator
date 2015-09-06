@@ -1,0 +1,10 @@
+{
+    "displayName" : "DistoX",
+    "btName" : "DistoX",
+    "UUID" : "0000110100001000800000805F9B34FB",
+    "messages" : {},
+    "measurements" : [],
+    "measurementsBinary" : [
+        [1, -5, 93, -5, 113, 51, -52, 105]
+    ]
+}
