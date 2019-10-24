@@ -2,5 +2,6 @@
   "CEM" : "CEMiLDM150.json",
   "LTI" : "LTITruPulse360.json",
   "Trimble" : "LaserAce1000.json",
-  "DistoX" : "DistoX.json"
+  "DistoX" : "DistoX.json",
+  "Leica Disto D3a": "LeicaDistoD3a.json"
 }
