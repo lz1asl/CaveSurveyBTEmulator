@@ -8,4 +8,4 @@ How to use :
  - Run `mvn jetty:run` as root to start the server
  - Open http://localhost:8080/
  
-~~Prebuild Java war available [here](https://razhodki.ci.cloudbees.com/job/CaveSurveyBTEmulator/lastSuccessfulBuild/artifact/target/CaveSurveyBTEmulator.war).~~
+Prebuild Java war available under [Actions](https://github.com/lz1asl/CaveSurveyBTEmulator/actions).
