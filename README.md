@@ -5,7 +5,7 @@ The goal is to use your computer's Bluetooth radio to simulate measurement devic
 
 How to use :
  - On Linux you may need to install `libbluetooth-dev`
- - Run `mvn jetty:run` as root to start the server
+ - Run `./mvnw jetty:run` as root to start the server
  - Open http://localhost:8080/
  
 Prebuild Java war available under [Actions](https://github.com/lz1asl/CaveSurveyBTEmulator/actions).
