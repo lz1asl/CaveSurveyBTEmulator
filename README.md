@@ -7,5 +7,7 @@ How to use :
  - On Linux you may need to install `libbluetooth-dev`
  - Run `./mvnw jetty:run` as root to start the server
  - Open http://localhost:8080/
+
+Note, the bluecove library used is no more supported, probably this explains the issues running with newer Java versions
  
 Prebuild Java war available under [Actions](https://github.com/lz1asl/CaveSurveyBTEmulator/actions).
