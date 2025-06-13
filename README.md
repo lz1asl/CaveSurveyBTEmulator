@@ -4,8 +4,9 @@ This is a device emulator for the [CaveSurvey](https://github.com/lz1asl/CaveSur
 The goal is to use your computer's Bluetooth radio to simulate measurement device that is not currently present (one of the supported [laser distance meters](https://github.com/lz1asl/CaveSurvey/wiki/Measurement-Devices) such as CEM, Trimble, LTI, DistoX, etc). CaveSurvey can connect to it and receive predefined measurements to verify the data exchange.
 
 How to use :
+ - Run with Java 21 or later
  - On Linux you may need to install `libbluetooth-dev`
- - Run `./mvnw jetty:run` as root to start the server
+ - Run `sudo ./mvnw jetty:run` as to start the server (root permissions needed to control the adapter)
  - Open http://localhost:8080/
  
 Prebuild Java war available under [Actions](https://github.com/lz1asl/CaveSurveyBTEmulator/actions).

@@ -3,7 +3,6 @@ package com.astoev.cave.survey.emulator.bluetooth;
 import com.astoev.cave.survey.emulator.Util;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.ArrayUtils;
 
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
